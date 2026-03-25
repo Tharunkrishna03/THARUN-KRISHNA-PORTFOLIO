@@ -2,185 +2,383 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tharun Krishna — Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Portfolio of Tharun Krishna, a front-end developer and UI designer building responsive web experiences with React, JavaScript, Python, MySQL, and Django."
+  />
+  <title>Tharun Krishna - Portfolio</title>
 
-  <!-- Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-
-  <!-- AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Particles canvas (behind content) -->
+  <a class="skip-link" href="#main">Skip to content</a>
   <canvas id="sparkles" aria-hidden="true"></canvas>
 
-  <header class="site-header">
+  <header class="site-header" id="siteHeader">
     <a class="logo" href="#home">Tharun Krishna</a>
-    <nav class="nav">
+
+    <button
+      id="menuToggle"
+      class="menu-toggle"
+      type="button"
+      aria-label="Toggle menu"
+      aria-controls="siteNav"
+      aria-expanded="false"
+    >
+      <i class="bx bx-menu" aria-hidden="true"></i>
+    </button>
+
+    <nav class="nav" id="siteNav" aria-label="Primary">
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
+        <li><a href="#services">Skills</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="https://tharunkrishna03.github.io/TK-INFO-TECH-CAREER-BRIDGE-LEARNING-INSTITUTE/">Project</a></li>
+        <li>
+          <a
+            href="https://tharunkrishna03.github.io/TK-INFO-TECH-CAREER-BRIDGE-LEARNING-INSTITUTE/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Project
+          </a>
+        </li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
-    <!-- <a class="cta" href="mailto:dtharunkrishna65@gmail.com">Contact</a>
-    <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu"><i class="bx bx-menu"></i></button> -->
+
+    <a class="cta" href="#contact">Let's Talk</a>
   </header>
 
-  <main>
-    <!-- HERO -->
+  <main id="main">
     <section id="home" class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow">Hello, I'm</p>
+      <div class="hero-inner" data-aos="fade-up">
+        <p class="eyebrow">Front-End Developer and UI Designer</p>
         <h1 class="hero-title">
-          <span class="split">Tharun</span>
-          <span class="split">Krishna</span>
+          <span class="split">Building responsive</span>
+          <span class="split">web experiences</span>
+          <span class="split">that feel easy to use.</span>
         </h1>
-        <p class="hero-sub"> A passionate Front-End Developer & UI Designer.
-I love turning ideas into beautiful, interactive web experiences using React.js, JavaScript, and modern UI tools.<br>
-Always curious and driven, I’m exploring new technologies to craft designs that are not just functional but truly inspiring.</p>
+        <p class="hero-sub">
+          I am Tharun Krishna, an MCA graduate who enjoys turning ideas into clean,
+          modern interfaces. I work with React, JavaScript, Python, MySQL, and Django
+          to create websites that are clear, practical, and user friendly.
+        </p>
+
         <div class="hero-ctas">
-          <a class="btn" href="#contact">Hire me</a>
-          <a class="btn ghost" href="https://drive.google.com/file/d/1IJnzb04Aq0xWAkjz7E8iSn2dTqj4i05u/view" target="_blank" rel="noopener">Download CV</a>
+          <a class="btn" href="#contact">Hire Me</a>
+          <a
+            class="btn ghost"
+            href="https://drive.google.com/file/d/1IJnzb04Aq0xWAkjz7E8iSn2dTqj4i05u/view"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download CV
+          </a>
         </div>
-         <div class="socials" data-aos="fade-up" data-aos-delay="260">
-          <a href="https://www.linkedin.com/in/tharun-krishna-d-35a6a632b/" target="_blank" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-          <a href="https://github.com/Tharunkrishna03" target="_blank" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+
+        <ul class="hero-highlights">
+          <li>Responsive UI development</li>
+          <li>Figma to code workflow</li>
+          <li>Django and MySQL foundations</li>
+        </ul>
+
+        <div class="socials" data-aos="fade-up" data-aos-delay="200">
+          <a
+            href="https://www.linkedin.com/in/tharun-krishna-d-35a6a632b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <i class="ri-linkedin-fill" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://github.com/Tharunkrishna03"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <i class="ri-github-fill" aria-hidden="true"></i>
+          </a>
         </div>
       </div>
+
+      <aside class="hero-card glass" data-aos="fade-left" data-aos-delay="150">
+        <p class="card-label">Current Focus</p>
+        <h2>Clean interfaces, strong basics, and steady growth.</h2>
+        <p>
+          I enjoy building polished front ends, improving usability, and learning the
+          backend skills needed to ship complete web projects.
+        </p>
+
+        <div class="hero-stack">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>React</span>
+          <span>Python</span>
+          <span>Django</span>
+          <span>MySQL</span>
+          <span>Figma</span>
+        </div>
+      </aside>
     </section>
 
-    <!-- ABOUT -->
     <section id="about" class="section glass" data-aos="fade-up">
       <div class="about-grid">
         <div class="about-image" data-aos="zoom-in">
-          <img src="./IMG_20251021_124130-removebg-preview.png" alt="Tharun Krishna photo">
+          <img
+            src="./IMG_20251021_124130-removebg-preview.png"
+            alt="Portrait of Tharun Krishna"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
+
         <div class="about-content">
-          <h2>About me</h2>
-          <p class="lead">I’m an MCA graduate and a passionate front-end developer. I design interfaces in Figma and build them responsively using modern web standards. I enjoy learning new tech and working on real projects.</p>
+          <p class="section-kicker">About</p>
+          <h2 class="section-heading">A design-minded developer who cares about clarity.</h2>
+          <p class="lead">
+            I enjoy creating interfaces that are simple to understand, visually clean,
+            and comfortable to use on both mobile and desktop. My goal is to combine
+            good design sense with reliable frontend development and steadily growing
+            backend skills.
+          </p>
+
+          <div class="about-panels">
+            <article class="about-panel">
+              <h3>What I do best</h3>
+              <p>Responsive layouts, reusable UI, form improvements, and clean presentation.</p>
+            </article>
+            <article class="about-panel">
+              <h3>What I am growing</h3>
+              <p>Python, Django, and database-backed projects that move beyond static pages.</p>
+            </article>
+          </div>
 
           <ul class="info">
-            
-            <li><strong>Speciality:</strong> Front-end Development, UI Design, Python , MySQL</li>
+            <li><strong>Specialty:</strong> Front-end Development, UI Design, Python, Django, MySQL</li>
             <li><strong>Location:</strong> Coimbatore, Tamil Nadu</li>
-            <li><strong>Email:</strong> <a href="mailto:dtharunkrishna65@gmail.com" onclick="makemail()">dtharunkrishna65@gmail.com</a></li>
-            <li><strong>Phone:</strong> <a href="tel:+919597151915" onclick="makecall()">+91 95971 51915</a></li>
+            <li><strong>Email:</strong> <a href="mailto:dtharunkrishna65@gmail.com">dtharunkrishna65@gmail.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+919597151915">+91 95971 51915</a></li>
           </ul>
-          
-          <a class="btn small" href="https://tharunkrishna03.github.io/TK-INFO-TECH-CAREER-BRIDGE-LEARNING-INSTITUTE/" target="_blank" >View Project</a>
+
+          <div class="about-actions">
+            <a
+              class="btn small"
+              href="https://tharunkrishna03.github.io/TK-INFO-TECH-CAREER-BRIDGE-LEARNING-INSTITUTE/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Featured Project
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
     <section id="services" class="section">
-      <h3 class="section-title" data-aos="fade-up">My <span>Services</span></h3>
+      <p class="section-kicker" data-aos="fade-up">Skills and Services</p>
+      <h2 class="section-heading" data-aos="fade-up">How I can help</h2>
+      <p class="section-copy" data-aos="fade-up">
+        I focus on making websites look better, work better, and feel more natural for users.
+      </p>
+
       <div class="cards" id="servicesCards">
         <article class="card glass" data-aos="fade-up">
-          <img src="fo.jpeg" alt="Frontend image" class="card-media">
-          <h4>Front-end Development</h4>
-          <p>Responsive, accessible UI from Figma to code using HTML, CSS, JS and React.</p>
+          <img src="./fo.jpeg" alt="Frontend development" class="card-media" loading="lazy" decoding="async" />
+          <h3>Front-End Development</h3>
+          <p>Responsive and accessible interfaces built with HTML, CSS, JavaScript, and React.</p>
         </article>
 
         <article class="card glass" data-aos="fade-up">
-          <img src="pyt.png" alt="Python image" class="card-media">
-          <h4>Python Development</h4>
-          <p>Scripting, small web apps, automation and data tasks using Python.</p>
+          <img src="./c7758a84-382b-4136-a6f5-da96b18388f3-cover.jpeg" alt="UI design sample" class="card-media" loading="lazy" decoding="async" />
+          <h3>UI Design to Code</h3>
+          <p>Translating layouts from design ideas or Figma into clean, usable screens.</p>
         </article>
 
         <article class="card glass" data-aos="fade-up">
-          <img src="./mysql-logo-png-512x512_d195b321_transparent.png" alt="MySQL" class="card-media">
-          <h4>Databases (MySQL)</h4>
-          <p>Database design, queries and ER diagram understanding for reliable data models.</p>
+          <img src="./pyt.png" alt="Python and Django" class="card-media" loading="lazy" decoding="async" />
+          <h3>Python and Django</h3>
+          <p>Building practical web features, simple backend flows, and server-rendered applications.</p>
+        </article>
+
+        <article class="card glass" data-aos="fade-up">
+          <img
+            src="./mysql-logo-png-512x512_d195b321_transparent.png"
+            alt="MySQL database"
+            class="card-media"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3>Database Design</h3>
+          <p>Working with MySQL for structured data, queries, and better project organization.</p>
         </article>
       </div>
     </section>
 
-    <!-- PORTFOLIO -->
-       <section id="portfolio" class="section glass" data-aos="fade-up">
-      <h3 class="section-title">Portfolio</h3>
-      <div class="portfolio-grid">
-        <!-- Example items - replace images & links with your projects -->
-        <a class="project" href="#" target="_blank" data-aos="fade-up" data-aos-delay="80"style="text-decoration: none; color: whitesmoke;">
-          <img src="./c7758a84-382b-4136-a6f5-da96b18388f3-cover.jpeg" alt="Project 1">
-          <div class="project-info">
-            <h4>Website Design</h4>
-            <p>Responsive landing page built with semantic HTML & CSS JavaScript & React js.</p>
-          </div>
-        </a>
+    <section id="portfolio" class="section glass" data-aos="fade-up">
+      <p class="section-kicker">Portfolio</p>
+      <h2 class="section-heading">Selected work and skill highlights</h2>
+      <p class="section-copy">
+        A few areas where I have already built, practiced, or prepared to deliver stronger projects.
+      </p>
 
-        <a class="project" href="#" target="_blank" data-aos="fade-up" data-aos-delay="160"style="text-decoration: none; color: whitesmoke;">
-          <img src="./mobile-app-ui-kit-with-different-gui-layout-including-log-in-create-account-sign-up-social-media-and-notification-screens-vector.jpg" alt="Project 2">
+      <div class="portfolio-grid" id="portfolioGrid">
+        <article class="project" data-aos="fade-up">
+          <img
+            src="./c7758a84-382b-4136-a6f5-da96b18388f3-cover.jpeg"
+            alt="Career Bridge website preview"
+            loading="lazy"
+            decoding="async"
+          />
           <div class="project-info">
-            <h4>Mobile UI</h4>
-            <p>Prototype to pixel-perfect HTML/CSS JavaScript & React js implementation.</p>
+            <p class="project-type">Featured Project</p>
+            <h3>Career Bridge Learning Institute</h3>
+            <p>
+              A responsive website focused on clean layout, readable structure, and clear calls to action.
+            </p>
+            <div class="project-links">
+              <a
+                class="project-link"
+                href="https://tharunkrishna03.github.io/TK-INFO-TECH-CAREER-BRIDGE-LEARNING-INSTITUTE/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Live Site
+              </a>
+            </div>
           </div>
-        </a>
-        
+        </article>
 
-        <a class="project" href="#" target="_blank" data-aos="fade-up" data-aos-delay="240" style="text-decoration: none; color: whitesmoke;">
-          <img src="./20406227-python-programming-language-4k-wallpaper.png" alt="Project 3">
+        <article class="project" data-aos="fade-up">
+          <img
+            src="./mobile-app-ui-kit-with-different-gui-layout-including-log-in-create-account-sign-up-social-media-and-notification-screens-vector.jpg"
+            alt="Mobile UI design concept"
+            loading="lazy"
+            decoding="async"
+          />
           <div class="project-info">
-            <h4>Python </h4>
-            <p>Python for automation, data handling, and problem-solving — blending creativity with logic to bring ideas to life.</p>
+            <p class="project-type">UI Practice</p>
+            <h3>Mobile UI Concepts</h3>
+            <p>
+              Layout practice focused on structure, hierarchy, and smooth translation from concept to interface.
+            </p>
+            <div class="project-links">
+              <span class="project-link disabled">Design showcase</span>
+            </div>
           </div>
-        </a>
+        </article>
 
-          <a class="project" href="#" target="_blank" data-aos="fade-up" data-aos-delay="240" style="text-decoration: none; color: whitesmoke;">
-          <img src="./MySQL_Workbench_Editor_General_Windows.gif" alt="Project 3">
+        <article class="project" data-aos="fade-up">
+          <img
+            src="./20406227-python-programming-language-4k-wallpaper.png"
+            alt="Python programming visual"
+            loading="lazy"
+            decoding="async"
+          />
           <div class="project-info">
-            <h4>MySQL </h4>
-            <p>I also have strong knowledge of MySQL, working with databases to build efficient and data-driven web solutions..</p>
+            <p class="project-type">Backend Skill</p>
+            <h3>Python Workflow Building</h3>
+            <p>
+              Practice with automation, problem-solving, and reusable logic for practical application development.
+            </p>
+            <div class="project-links">
+              <span class="project-link disabled">Code practice</span>
+            </div>
           </div>
-        </a>
+        </article>
+
+        <article class="project" data-aos="fade-up">
+          <img
+            src="./MySQL_Workbench_Editor_General_Windows.gif"
+            alt="MySQL workbench interface"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="project-info">
+            <p class="project-type">New Skill Added</p>
+            <h3>Django with MySQL</h3>
+            <p>
+              Expanding into full-stack work by combining Django backend logic with structured database design.
+            </p>
+            <div class="project-links">
+              <span class="project-link disabled">In progress</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="section">
-      <h3 class="section-title" data-aos="fade-up">Contact</h3>
+      <p class="section-kicker" data-aos="fade-up">Contact</p>
+      <h2 class="section-heading" data-aos="fade-up">Let's build something useful together.</h2>
+
       <div class="contact-grid glass" data-aos="fade-up">
-        <div>
-          <h4>Let's collaborate</h4>
-          <p>Reach out via email or phone — available for internships and junior roles.</p>
-          <p><strong>Email:</strong> <a href="mailto:dtharunkrishna65@gmail.com" onclick="makemail()">dtharunkrishna65@gmail.com</a></p>
-          <p><strong>Phone:</strong> <a href="tel:+919597151915" onclick="makecall()">+91 95971 51915</a></p>
+        <div class="contact-copy">
+          <h3>Available for internships and junior roles</h3>
+          <p>
+            If you are looking for someone who cares about usability, responsive design,
+            and steady improvement, I would love to connect.
+          </p>
+
+          <ul class="contact-list">
+            <li><strong>Email:</strong> <a href="mailto:dtharunkrishna65@gmail.com">dtharunkrishna65@gmail.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+919597151915">+91 95971 51915</a></li>
+            <li><strong>Location:</strong> Coimbatore, Tamil Nadu</li>
+          </ul>
         </div>
 
-        <form id="contactForm" class="contact-form" onsubmit="sendMail(event)">
-          <label><span>Name</span><input id="cf-name" required ></label>
-          <label><span>Email</span><input type="email" id="cf-email" required></label>
-          <label><span>Message</span><textarea id="cf-message" rows="4" required></textarea></label>
+        <form id="contactForm" class="contact-form" novalidate>
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="from_name" type="text" autocomplete="name" placeholder="Your name" required />
+
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email_id" type="email" autocomplete="email" placeholder="your@email.com" required />
+
+          <label for="cf-message">Message</label>
+          <textarea
+            id="cf-message"
+            name="message"
+            rows="5"
+            placeholder="Tell me about your project or opportunity"
+            required
+          ></textarea>
+
           <div class="form-actions">
-            <button class="btn" type="submit" >Send</button>
+            <button class="btn" type="submit">Send Message</button>
             <button class="btn ghost" type="reset">Reset</button>
           </div>
+
+          <p class="form-note">If the form service is unavailable, your email app will open as a fallback.</p>
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© <span id="year"></span> Tharun Krishna — All rights reserved.</p>
-    <a href="#home" class="scroll-top" aria-label="Back to top"><i class="ri-arrow-up-s-fill"></i></a>
+    <p>&copy; <span id="year"></span> Tharun Krishna. Built for clarity and growth.</p>
+    <a href="#home" class="scroll-top" aria-label="Back to top">
+      <i class="ri-arrow-up-s-fill" aria-hidden="true"></i>
+    </a>
   </footer>
 
-  <!-- Libraries -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-  <!-- Main script -->
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,154 +1,312 @@
-// ---------- basic page helpers ----------
-document.getElementById('year').textContent = new Date().getFullYear?.() || new Date().getFullYear();
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// init AOS (scroll animations)
-AOS.init({ offset: 140, duration: 700, once: true });
-
-// GSAP hero reveal
-if (window.gsap) {
-  gsap.from(".hero .split", { y: 30, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power3.out" });
-  gsap.from(".hero-sub", { y: 12, opacity: 0, delay: 0.25, duration: 0.8 });
-  gsap.from(".hero-ctas .btn", { y: 10, opacity: 0, stagger: 0.08, delay: 0.45 });
+const yearElement = document.getElementById("year");
+if (yearElement) {
+  yearElement.textContent = String(new Date().getFullYear());
 }
 
-// Add incremental AOS delays to service & portfolio cards (slide-up stagger)
-function staggerAos(containerSelector, itemSelector, startDelay = 0, step = 80) {
-  const container = document.querySelector(containerSelector);
-  if (!container) return;
-  const items = container.querySelectorAll(itemSelector);
-  items.forEach((it, i) => {
-    const delay = startDelay + i * step;
-    it.setAttribute('data-aos-delay', String(delay));
+if (window.AOS) {
+  AOS.init({
+    offset: 120,
+    duration: prefersReducedMotion ? 0 : 700,
+    once: true,
+    disable: prefersReducedMotion
   });
 }
-staggerAos('#servicesCards', '.card', 60, 120);
-staggerAos('#portfolioGrid', '.card, .project', 60, 120);
 
-// ---------------- star sparkle particles ----------------
-(() => {
-  const canvas = document.getElementById('sparkles');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = innerWidth;
-  let h = canvas.height = innerHeight;
-  const particles = [];
+if (window.gsap && !prefersReducedMotion) {
+  gsap.from(".hero .split", {
+    y: 28,
+    opacity: 0,
+    stagger: 0.12,
+    duration: 0.85,
+    ease: "power3.out"
+  });
+  gsap.from(".hero-sub", {
+    y: 18,
+    opacity: 0,
+    delay: 0.2,
+    duration: 0.8
+  });
+  gsap.from(".hero-ctas .btn, .hero-highlights li, .socials a", {
+    y: 12,
+    opacity: 0,
+    stagger: 0.08,
+    delay: 0.35,
+    duration: 0.65
+  });
+}
 
-  function rand(min, max){ return Math.random() * (max - min) + min; }
-
-  // star drawing (simple 5-point)
-  function drawStar(x, y, r, rotation, alpha) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(rotation);
-    ctx.globalAlpha = alpha;
-    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-    ctx.beginPath();
-    for (let i = 0; i < 5; i++) {
-      ctx.lineTo(Math.cos((18 + i * 72) / 180 * Math.PI) * r, -Math.sin((18 + i * 72) / 180 * Math.PI) * r);
-      ctx.lineTo(Math.cos((54 + i * 72) / 180 * Math.PI) * (r * 0.45), -Math.sin((54 + i * 72) / 180 * Math.PI) * (r * 0.45));
-    }
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
+function staggerAos(containerSelector, itemSelector, startDelay = 0, step = 80) {
+  const container = document.querySelector(containerSelector);
+  if (!container) {
+    return;
   }
 
-  function spawn(x, y) {
-    const count = Math.floor(rand(2, 5));
-    for (let i = 0; i < count; i++) {
+  const items = container.querySelectorAll(itemSelector);
+  items.forEach((item, index) => {
+    item.setAttribute("data-aos-delay", String(startDelay + index * step));
+  });
+}
+
+staggerAos("#servicesCards", ".card", 80, 110);
+staggerAos("#portfolioGrid", ".project", 80, 110);
+
+const siteHeader = document.getElementById("siteHeader");
+if (siteHeader) {
+  const updateHeaderState = () => {
+    siteHeader.classList.toggle("scrolled", window.scrollY > 16);
+  };
+
+  updateHeaderState();
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+}
+
+const menuToggle = document.getElementById("menuToggle");
+const siteNav = document.getElementById("siteNav");
+const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
+
+function closeMenu() {
+  if (!menuToggle || !siteNav) {
+    return;
+  }
+
+  siteNav.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded", "false");
+
+  const icon = menuToggle.querySelector("i");
+  if (icon) {
+    icon.className = "bx bx-menu";
+  }
+}
+
+if (menuToggle && siteNav) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = siteNav.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+
+    const icon = menuToggle.querySelector("i");
+    if (icon) {
+      icon.className = isOpen ? "bx bx-x" : "bx bx-menu";
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+}
+
+const sections = Array.from(document.querySelectorAll("main section[id]"));
+if ("IntersectionObserver" in window && sections.length && navLinks.length) {
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const activeId = entry.target.getAttribute("id");
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${activeId}`;
+          link.classList.toggle("active", isActive);
+        });
+      });
+    },
+    {
+      threshold: 0.45,
+      rootMargin: "-10% 0px -35% 0px"
+    }
+  );
+
+  sections.forEach((section) => sectionObserver.observe(section));
+}
+
+function initializeSparkles() {
+  const canvas = document.getElementById("sparkles");
+  if (!canvas) {
+    return;
+  }
+
+  const disableSparkles = prefersReducedMotion || window.matchMedia("(pointer: coarse)").matches;
+  if (disableSparkles) {
+    canvas.remove();
+    return;
+  }
+
+  const context = canvas.getContext("2d");
+  if (!context) {
+    return;
+  }
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+  const particles = [];
+
+  const randomBetween = (min, max) => Math.random() * (max - min) + min;
+
+  function drawStar(x, y, radius, rotation, alpha) {
+    context.save();
+    context.translate(x, y);
+    context.rotate(rotation);
+    context.globalAlpha = alpha;
+    context.fillStyle = "rgba(255, 255, 255, 0.95)";
+    context.beginPath();
+
+    for (let index = 0; index < 5; index += 1) {
+      context.lineTo(
+        Math.cos(((18 + index * 72) * Math.PI) / 180) * radius,
+        -Math.sin(((18 + index * 72) * Math.PI) / 180) * radius
+      );
+      context.lineTo(
+        Math.cos(((54 + index * 72) * Math.PI) / 180) * radius * 0.45,
+        -Math.sin(((54 + index * 72) * Math.PI) / 180) * radius * 0.45
+      );
+    }
+
+    context.closePath();
+    context.fill();
+    context.restore();
+  }
+
+  function spawn(x, y, count = Math.floor(randomBetween(1, 4))) {
+    for (let index = 0; index < count; index += 1) {
       particles.push({
-        x: x + rand(-6, 6),
-        y: y + rand(-6, 6),
-        vx: rand(-0.6, 0.6),
-        vy: rand(-1.4, -0.2),
-        r: rand(1.8, 4.8),
-        rot: rand(0, Math.PI * 2),
-        vrot: rand(-0.08, 0.08),
-        life: rand(40, 90),
+        x: x + randomBetween(-8, 8),
+        y: y + randomBetween(-8, 8),
+        vx: randomBetween(-0.5, 0.5),
+        vy: randomBetween(-1.1, -0.1),
+        radius: randomBetween(1.3, 3.6),
+        rotation: randomBetween(0, Math.PI * 2),
+        rotationVelocity: randomBetween(-0.07, 0.07),
+        life: randomBetween(35, 70),
         age: 0
       });
     }
   }
 
-  // mouse follow spawns
   let lastMove = 0;
-  window.addEventListener('mousemove', (e) => {
+  window.addEventListener("mousemove", (event) => {
     const now = Date.now();
-    // limit spawn frequency for perf
-    if (now - lastMove > 10) {
-      spawn(e.clientX, e.clientY);
-      lastMove = now;
+    if (now - lastMove < 35) {
+      return;
     }
+
+    spawn(event.clientX, event.clientY, 2);
+    lastMove = now;
   });
 
-  // gentle ambient spawn (floating stars across the screen)
-  setInterval(() => {
-    // spawn near top area occasionally
-    if (Math.random() < 0.3) {
-      spawn(rand(0, w), rand(0, h * 0.6));
+  const ambientTimer = window.setInterval(() => {
+    if (Math.random() < 0.35) {
+      spawn(randomBetween(0, width), randomBetween(0, height * 0.7), 1);
     }
-  }, 900);
+  }, 1200);
 
   function update() {
-    ctx.clearRect(0,0,w,h);
+    context.clearRect(0, 0, width, height);
 
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.02; // gravity-like
-      p.rot += p.vrot;
-      p.age++;
-      const alpha = 1 - p.age / p.life;
-      drawStar(p.x, p.y, p.r, p.rot, Math.max(alpha, 0));
-      if (p.age > p.life || p.y > h + 40 || p.x < -40 || p.x > w + 40) {
-        particles.splice(i,1);
+    for (let index = particles.length - 1; index >= 0; index -= 1) {
+      const particle = particles[index];
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.vy += 0.015;
+      particle.rotation += particle.rotationVelocity;
+      particle.age += 1;
+
+      const alpha = 1 - particle.age / particle.life;
+      drawStar(particle.x, particle.y, particle.radius, particle.rotation, Math.max(alpha, 0));
+
+      if (
+        particle.age > particle.life ||
+        particle.y > height + 40 ||
+        particle.x < -40 ||
+        particle.x > width + 40
+      ) {
+        particles.splice(index, 1);
       }
     }
-    requestAnimationFrame(update);
+
+    window.requestAnimationFrame(update);
   }
+
   update();
 
-  window.addEventListener('resize', () => {
-    w = canvas.width = innerWidth;
-    h = canvas.height = innerHeight;
+  window.addEventListener("resize", () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
   });
-})();
 
-// ---------------- contact form (mailto fallback) ----------------
-(function () {
-  emailjs.init("Ou_qu_feu12sSNEkc"); // your public key
-})();
-
-function sendmail(event) {
-  event.preventDefault(); // stop the page from reloading
-
-  emailjs
-    .send("service_tpuqps7", "template_ln9myvv", {
-      from_name: document.getElementById("cf-name").value,
-      email_id: document.getElementById("cf-email").value, 
-      message: document.getElementById("cf-message").value,
-    })
-    .then(
-      function (response) {
-        alert(" Message sent successfully!");
-        document.getElementById("contactForm").reset(); // optional: clear the form
-      },
-      function (error) {
-        alert("FAILED... " + error.text);
-      }
-    );
-}
-
-// ---------------- mobile menu (simple) ----------------
-const menuToggle = document.getElementById('menuToggle');
-if (menuToggle) {
-  menuToggle.addEventListener('click', () => {
-    document.querySelector('.nav')?.classList.toggle('open');
+  window.addEventListener("beforeunload", () => {
+    window.clearInterval(ambientTimer);
   });
 }
-function makecall() {
-  window.location.href = "tel:+91 9597151915";
+
+initializeSparkles();
+
+const contactForm = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
+
+function setFormStatus(message, type = "") {
+  if (!formStatus) {
+    return;
+  }
+
+  formStatus.textContent = message;
+  formStatus.classList.remove("success", "error");
+
+  if (type) {
+    formStatus.classList.add(type);
+  }
 }
 
-function makemail() {
-  window.location.href = "mailto:dtharunkrishna65@gmail.com";
+function openMailFallback({ name, email, message }) {
+  const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+  window.location.href = `mailto:dtharunkrishna65@gmail.com?subject=${subject}&body=${body}`;
+}
+
+if (window.emailjs) {
+  emailjs.init("Ou_qu_feu12sSNEkc");
+}
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("cf-name")?.value.trim() || "";
+    const email = document.getElementById("cf-email")?.value.trim() || "";
+    const message = document.getElementById("cf-message")?.value.trim() || "";
+
+    if (!name || !email || !message) {
+      setFormStatus("Please complete all fields before sending.", "error");
+      return;
+    }
+
+    setFormStatus("Sending your message...", "");
+
+    if (!window.emailjs) {
+      setFormStatus("Email service is unavailable. Opening your email app instead.", "error");
+      openMailFallback({ name, email, message });
+      return;
+    }
+
+    try {
+      await emailjs.send("service_tpuqps7", "template_ln9myvv", {
+        from_name: name,
+        email_id: email,
+        message
+      });
+
+      contactForm.reset();
+      setFormStatus("Your message was sent successfully.", "success");
+    } catch (error) {
+      setFormStatus("The form could not send automatically. Opening your email app instead.", "error");
+      openMailFallback({ name, email, message });
+    }
+  });
+
+  contactForm.addEventListener("reset", () => {
+    window.setTimeout(() => {
+      setFormStatus("", "");
+    }, 0);
+  });
 }
